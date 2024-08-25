@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Pressable,
   StatusBar,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { z } from "zod";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,9 +20,10 @@ import * as LocalAuthentication from "expo-local-authentication";
 // Import your components
 import FingerprintSuccess from "@/components/FingerprintSuccess";
 import FingerprintError from "@/components/FingerprintError";
+// import { useAuth } from "@/app/auth/AuthContext";
 
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
@@ -90,105 +93,108 @@ export default function FirstLoginScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <Pressable onPress={() => router.push("/")}>
-        <Text style={styles.cancelButton}>Cancel</Text>
-      </Pressable>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        <Pressable onPress={() => router.push("/(tabs)/")}>
+          <Text style={styles.cancelButton}>Cancel</Text>
+        </Pressable>
 
-      <View>
-        <Text style={styles.header}>Login to your account</Text>
-        <Text style={styles.subText}>
-          We are glad to have you, kindly enter your login details.
-        </Text>
-      </View>
-
-      <View>
-        <View style={styles.inputContainer}>
-          {(isPhoneNumberFocused || phoneNumber) && (
-            <Text style={styles.legend}>Phone Number*</Text>
-          )}
-          <TextInput
-            placeholder={!isPhoneNumberFocused ? "Phone Number" : ""}
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            onFocus={() => setIsPhoneNumberFocused(true)}
-            onBlur={() => setIsPhoneNumberFocused(false)}
-            style={[
-              styles.inputBox,
-              isPhoneNumberFocused && styles.inputBoxFocused,
-            ]}
-          />
+        <View>
+          <Text style={styles.header}>Login to your account</Text>
+          <Text style={styles.subText}>
+            We are glad to have you, kindly enter your login details.
+          </Text>
         </View>
 
-        <View style={styles.inputContainer}>
-          {(isPasswordFocused || password) && (
-            <Text style={styles.legend}>Password</Text>
-          )}
-          <View style={styles.passwordContainer}>
+        <View>
+          <View style={styles.inputContainer}>
+            {(isPhoneNumberFocused || phoneNumber) && (
+              <Text style={styles.legend}>Phone Number*</Text>
+            )}
             <TextInput
-              placeholder={!isPasswordFocused ? "Password" : ""}
-              value={password}
-              onChangeText={setPassword}
-              onFocus={() => setIsPasswordFocused(true)}
-              onBlur={() => setIsPasswordFocused(false)}
-              secureTextEntry={secureTextEntry}
+              placeholder={!isPhoneNumberFocused ? "Phone Number" : ""}
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              onFocus={() => setIsPhoneNumberFocused(true)}
+              onBlur={() => setIsPhoneNumberFocused(false)}
               style={[
                 styles.inputBox,
-                isPasswordFocused && styles.inputBoxFocused,
+                isPhoneNumberFocused && styles.inputBoxFocused,
               ]}
             />
-            <TouchableOpacity
-              onPress={() => setSecureTextEntry(!secureTextEntry)}
-            >
-              <Ionicons
-                name={secureTextEntry ? "eye-off" : "eye"}
-                size={24}
-                color="#666666"
-                style={styles.eyeIcon}
+          </View>
+
+          <View style={styles.inputContainer}>
+            {(isPasswordFocused || password) && (
+              <Text style={styles.legend}>Password</Text>
+            )}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder={!isPasswordFocused ? "Password" : ""}
+                value={password}
+                onChangeText={setPassword}
+                onFocus={() => setIsPasswordFocused(true)}
+                onBlur={() => setIsPasswordFocused(false)}
+                secureTextEntry={secureTextEntry}
+                style={[
+                  styles.inputBox,
+                  isPasswordFocused && styles.inputBoxFocused,
+                ]}
               />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setSecureTextEntry(!secureTextEntry)}
+              >
+                <Ionicons
+                  name={secureTextEntry ? "eye-off" : "eye"}
+                  size={24}
+                  color="#666666"
+                  style={styles.eyeIcon}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-      {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+        {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
 
-      <Pressable onPress={handleLogin} style={styles.loginBtn}>
-        <Text style={styles.loginText}>Login</Text>
-      </Pressable>
+        <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
 
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>
-          Don't have an account? <Link href={"/"}>Sign up</Link>
-        </Text>
-        <Text>
-          <Link href={"/"} style={styles.subText}>
-            Forgot Password?
-          </Link>
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>
+            <Link href={"/(auth)/sign-in"}>Sign in Instead</Link>
+          </Text>
+          <Text style={styles.text}>
+            Don't have an account? <Link href={"/(auth)/login"}>Sign up</Link>
+          </Text>
+          <Text>
+            <Link href={"/(auth)/login"} style={styles.subText}>
+              Forgot Password?
+            </Link>
+          </Text>
 
-        {isBiometricSupported && (
-          <TouchableOpacity
-            onPress={handleBiometricAuth}
-            style={styles.fingerprintBtn}
-          >
-            <Ionicons name="finger-print" size={40} color="#208220" />
-          </TouchableOpacity>
+          {isBiometricSupported && (
+            <TouchableOpacity
+              onPress={handleBiometricAuth}
+              style={styles.fingerprintBtn}
+            >
+              <Ionicons name="finger-print" size={40} color="#208220" />
+            </TouchableOpacity>
+          )}
+        </View>
+        <Text style={styles.versionText}>v1.1.1</Text>
+
+        {/* Conditionally render success or error component */}
+        {showSuccess && <FingerprintSuccess visible={true} />}
+        {showError && (
+          <FingerprintError
+            visible={true}
+            onClose={() => setShowError(false)}
+          />
         )}
-      </View>
-      <Text style={styles.versionText}>v1.1.1</Text>
-
-      {/* Conditionally render success or error component */}
-      {showSuccess && <FingerprintSuccess visible={true} />}
-      {showError && (
-        <FingerprintError
-          visible={true}
-          onClose={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
-      )}
-    </SafeAreaView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -197,7 +203,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    padding: 20,
+    paddingHorizontal: 20,
     backgroundColor: "white",
   },
   cancelButton: {
@@ -285,8 +291,8 @@ const styles = StyleSheet.create({
     lineHeight: 20.3,
   },
   text: {
-    marginTop: 40,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     fontWeight: "400",
     color: "#208220",
     fontSize: 14,

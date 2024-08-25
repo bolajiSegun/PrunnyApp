@@ -4,6 +4,8 @@ import {
   ImageBackground,
   TouchableOpacity,
   Alert,
+  ScrollView,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
@@ -11,6 +13,7 @@ import Header from "@/components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
 import ServicesCard from "@/components/ServicesCard";
+import RecentTransactionBlock from "@/components/RecentTransactionBlock";
 
 export default function index() {
   const [isBalanceVisible, setIsBalanceVisible] = useState(true);
@@ -27,123 +30,166 @@ export default function index() {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header />
+      <ScrollView>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
+        <Header />
 
-      {/* Hero section of the homepage */}
-      <View
-        style={{
-          backgroundColor: "#208220",
-          padding: 20,
-          borderRadius: 10,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.3,
-          shadowRadius: 3,
-          elevation: 5,
-          marginHorizontal: 10,
-          marginTop: 20,
-          height: 183,
-        }}
-      >
-        <ImageBackground
-          source={require("@/assets/images/Union.png")}
+        {/* Hero section of the homepage */}
+        <View
           style={{
-            width: 202,
-            alignSelf: "flex-end",
-            height: 183,
-            position: "absolute",
-            top: 0,
-            right: 0,
+            backgroundColor: "#208220",
+            padding: 20,
             borderRadius: 10,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 3,
+            elevation: 5,
+            marginHorizontal: 10,
+            marginTop: 20,
+            height: 183,
           }}
-        />
-        <View style={{ width: 325 }}>
-          <Text style={{ color: "#fff", fontSize: 18, marginBottom: 10 }}>
-            Savings Account Balance
-          </Text>
-          <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-            {isBalanceVisible ? "NGN102,238.72" : "•••••••••••"}
-          </Text>
+        >
+          <ImageBackground
+            source={require("@/assets/images/Union.png")}
+            style={{
+              width: 202,
+              alignSelf: "flex-end",
+              height: 183,
+              position: "absolute",
+              top: 0,
+              right: 0,
+              borderRadius: 10,
+            }}
+          />
+          <View style={{ width: 325 }}>
+            <Text style={{ color: "#fff", fontSize: 18, marginBottom: 10 }}>
+              Savings Account Balance
+            </Text>
+            <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+              {isBalanceVisible ? "NGN102,238.72" : "•••••••••••"}
+            </Text>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ color: "#fff", fontSize: 18 }}>
+              Adewole Damilare
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              {/* This section is what's contrling the hide/show balance and aslo this section also contain where you can copy the account balance */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ color: "#fff", fontSize: 16, marginRight: 10 }}>
+                  2040011238
+                </Text>
+                <TouchableOpacity onPress={copyToClipboard}>
+                  <Ionicons name="copy-outline" size={20} color="#fff" />
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                onPress={toggleBalanceVisibility}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ color: "#fff", marginRight: 5 }}>
+                  {isBalanceVisible ? "Hide balance" : "Show balance"}
+                </Text>
+                <Ionicons
+                  name={isBalanceVisible ? "eye-off-outline" : "eye-outline"}
+                  size={20}
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ color: "#fff", fontSize: 18 }}>Adewole Damilare</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
+            marginTop: 10,
+          }}
+        >
+          <View
+            style={{
+              width: 6,
+              height: 6,
+              backgroundColor: "#208220",
+              // marginHorizontal: 5,
+              borderRadius: 100,
+            }}
+          ></View>
+          <View
+            style={{
+              width: 6,
+              height: 6,
+              backgroundColor: "#B7B7B7",
+              // marginHorizontal: 5,
+              borderRadius: 100,
+            }}
+          ></View>
+          <View
+            style={{
+              width: 6,
+              height: 6,
+              backgroundColor: "#B7B7B7",
+              // marginHorizontal: 5,
+              borderRadius: 100,
+            }}
+          ></View>
+        </View>
+
+        {/* Services Section */}
+
+        <ServicesCard />
+
+        {/* Recent transactions */}
+        <View style={{ marginTop: 40, padding: 20 }}>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
+              marginBottom: 20,
             }}
           >
-            {/* This section is what's contrling the hide/show balance and aslo this section also contain where you can copy the account balance */}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 16, marginRight: 10 }}>
-                2040011238
+            <Text style={{ color: "#333", fontSize: 20, fontWeight: "700" }}>
+              Recent Transactions
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  color: "#208220",
+                  fontSize: 12,
+                  fontWeight: "400",
+                  paddingHorizontal: 15,
+                  paddingVertical: 5,
+                  borderRadius: 5,
+                  backgroundColor: "rgba(30,208,30, 0.1)",
+                }}
+              >
+                View all
               </Text>
-              <TouchableOpacity onPress={copyToClipboard}>
-                <Ionicons name="copy-outline" size={20} color="#fff" />
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              onPress={toggleBalanceVisibility}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-              }}
-            >
-              <Text style={{ color: "#fff", marginRight: 5 }}>
-                {isBalanceVisible ? "Hide balance" : "Show balance"}
-              </Text>
-              <Ionicons
-                name={isBalanceVisible ? "eye-off-outline" : "eye-outline"}
-                size={20}
-                color="#fff"
-              />
             </TouchableOpacity>
           </View>
+          <RecentTransactionBlock />
         </View>
-      </View>
-
-      {/* Services Section */}
-
-      <ServicesCard />
-
-      {/* Recent transactions */}
-      <View style={{ marginTop: 40, padding: 20 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 20,
-          }}
-        >
-          <Text style={{ color: "#333", fontSize: 20, fontWeight: "700" }}>
-            Recent Transactions
-          </Text>
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: "#208220",
-                fontSize: 12,
-                fontWeight: "400",
-                paddingHorizontal: 15,
-                paddingVertical: 5,
-                borderRadius: 5,
-                backgroundColor: "rgba(30,208,30, 0.1)",
-              }}
-            >
-              View all
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

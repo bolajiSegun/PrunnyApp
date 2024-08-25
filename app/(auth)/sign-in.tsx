@@ -25,16 +25,13 @@ import FingerprintSuccess from "@/components/FingerprintSuccess";
 import FingerprintError from "@/components/FingerprintError";
 
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 export default function FirstLoginScreen() {
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [isPhoneNumberFocused, setIsPhoneNumberFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -52,7 +49,7 @@ export default function FirstLoginScreen() {
 
   const handleLogin = async () => {
     try {
-      loginSchema.parse({ phoneNumber, password });
+      loginSchema.parse({ password });
       await AsyncStorage.setItem("isLoggedIn", "true");
       await AsyncStorage.setItem("isFirstTimeLogin", "false");
       router.push("/");
@@ -120,7 +117,7 @@ export default function FirstLoginScreen() {
             <View>
               <Text style={styles.header}>Damilare,</Text>
               <Text style={styles.subText}>
-                kindly enter your login details.
+                Kindly enter your password to login.
               </Text>
             </View>
 
@@ -194,9 +191,7 @@ export default function FirstLoginScreen() {
             {showError && (
               <FingerprintError
                 visible={true}
-                onClose={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
+                onClose={() => setShowError(false)}
               />
             )}
           </View>
@@ -225,7 +220,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 6,
     paddingHorizontal: 10,
-    marginBottom: 50,
+    marginBottom: 20,
     width: 80,
     color: "#208220",
     textAlign: "center",
@@ -253,69 +248,60 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -10,
     left: 15,
-    fontSize: 12,
-    color: "#208220",
     backgroundColor: "white",
+    color: "#208220",
     paddingHorizontal: 5,
     zIndex: 1,
+    fontSize: 14,
   },
   inputBox: {
-    width: 325,
+    width: 335,
+    margin: "auto",
     borderWidth: 1,
-    padding: 10,
+    borderColor: "#E5E5E5",
     borderRadius: 5,
-    borderColor: "#666666",
-    justifyContent: "center",
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    backgroundColor: "#F8F8F8",
   },
   inputBoxFocused: {
-    borderColor: "#666666",
+    borderColor: "#208220",
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   eyeIcon: {
-    position: "absolute",
-    right: 15,
-    top: -10,
+    marginLeft: -35,
   },
   loginBtn: {
-    backgroundColor: "#208220",
-    padding: 10,
-    borderRadius: 5,
     marginTop: 20,
-    width: 325,
-    height: 50,
-    justifyContent: "center",
+    backgroundColor: "#208220",
+    borderRadius: 5,
+    paddingVertical: 12,
+    width: "100%",
+    textAlign: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   loginText: {
-    color: "#fff",
+    color: "white",
+    fontWeight: "600",
     fontSize: 16,
-    fontWeight: "700",
   },
   textContainer: {
-    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
-    width: 220,
-    marginHorizontal: "auto",
-    letterSpacing: 0.2,
-    lineHeight: 20.3,
+    width: "100%",
+    marginTop: 20,
   },
   text: {
-    marginTop: 40,
-    marginBottom: 20,
-    fontWeight: "400",
     color: "#208220",
-    fontSize: 14,
-    lineHeight: 22,
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    fontSize: 16,
+    fontWeight: "600",
   },
   fingerprintBtn: {
-    marginTop: 20,
+    padding: 10,
+    alignItems: "center",
   },
   versionText: {
     alignSelf: "center",
