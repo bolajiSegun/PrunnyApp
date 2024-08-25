@@ -1,5 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Octicons from "@expo/vector-icons/Octicons";
+import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 
 export default function ServicesCard() {
@@ -67,7 +72,7 @@ export default function ServicesCard() {
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(255,10,30, 0.1)",
                 borderRadius: 10,
               }}
             />
@@ -80,22 +85,23 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Remita
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <AntDesign
+              name="copy1"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(205,10,30, 0.3)",
                 borderRadius: 10,
               }}
             />
+
             <Text
               style={{
                 color: "#333",
@@ -105,22 +111,23 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Pay Bills
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <Entypo
+              name="mobile"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(30,50,150, 0.1)",
                 borderRadius: 10,
               }}
             />
+
             <Text
               style={{
                 color: "#333",
@@ -130,7 +137,7 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Airtime
             </Text>
           </View>
         </TouchableOpacity>
@@ -138,16 +145,17 @@ export default function ServicesCard() {
       <View style={{ flexDirection: "row", gap: 20, marginTop: 20 }}>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <FontAwesome6
+              name="hand-holding-dollar"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(255,155,100, 0.1)",
                 borderRadius: 10,
               }}
             />
+
             <Text
               style={{
                 color: "#333",
@@ -157,22 +165,23 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Loans
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <Feather
+              name="tv"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(150,8,100, 0.1)",
                 borderRadius: 10,
               }}
             />
+
             <Text
               style={{
                 color: "#333",
@@ -182,22 +191,23 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Cable TV
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <Octicons
+              name="graph"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(30,50,150, 0.1)",
                 borderRadius: 10,
               }}
             />
+
             <Text
               style={{
                 color: "#333",
@@ -207,19 +217,19 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Invest
             </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="paper-plane-outline"
+            <FontAwesome6
+              name="lightbulb"
               size={24}
               color="black"
               style={{
                 padding: 20,
-                backgroundColor: "rgba(30,208,30, 0.1)",
+                backgroundColor: "rgba(30,208,30, 0.2)",
                 borderRadius: 10,
               }}
             />
@@ -232,7 +242,7 @@ export default function ServicesCard() {
                 marginTop: 5,
               }}
             >
-              Send Money
+              Electricity
             </Text>
           </View>
         </TouchableOpacity>
