@@ -16,11 +16,8 @@ import { Link, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import * as LocalAuthentication from "expo-local-authentication";
-
-// Import your components
 import FingerprintSuccess from "@/components/FingerprintSuccess";
 import FingerprintError from "@/components/FingerprintError";
-// import { useAuth } from "@/app/auth/AuthContext";
 
 const loginSchema = z.object({
   phoneNumber: z.string().min(1, "Phone number is required"),
@@ -96,9 +93,9 @@ export default function FirstLoginScreen() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
-        <Pressable onPress={() => router.push("/(tabs)/")}>
+        <TouchableOpacity onPress={() => router.back()}>
           <Text style={styles.cancelButton}>Cancel</Text>
-        </Pressable>
+        </TouchableOpacity>
 
         <View>
           <Text style={styles.header}>Login to your account</Text>

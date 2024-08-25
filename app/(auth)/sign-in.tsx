@@ -104,9 +104,9 @@ export default function FirstLoginScreen() {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={{ flex: 1 }}>
-            <Pressable onPress={() => router.push("/")}>
+            <TouchableOpacity onPress={() => router.back()}>
               <Text style={styles.cancelButton}>Cancel</Text>
-            </Pressable>
+            </TouchableOpacity>
 
             <View style={styles.image}>
               <Image
