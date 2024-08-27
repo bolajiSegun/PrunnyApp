@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
   },
   fingerprintBtn: {
     padding: 10,
+    marginVertical: 40,
     alignItems: "center",
   },
   versionText: {

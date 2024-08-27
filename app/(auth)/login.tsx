@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     marginBottom: 50,
+    marginTop: 20,
     width: 80,
     color: "#208220",
     textAlign: "center",
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
     lineHeight: 20.3,
   },
   text: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     fontWeight: "400",
     color: "#208220",
@@ -299,7 +300,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   fingerprintBtn: {
-    marginTop: 20,
+    marginVertical: 20,
+    marginTop: 50,
   },
   versionText: {
     alignSelf: "center",
